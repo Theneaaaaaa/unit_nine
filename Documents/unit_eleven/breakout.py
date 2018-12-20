@@ -45,7 +45,7 @@ def main():
             y = y + BRICK_HEIGHT + BRICK_SEP
             x = 0
 
-    paddle_1 = paddle.Paddle(mainSurface, WHITE, PADDLE_WIDTH, PADDLE_HEIGHT)
+    paddle_1 = paddle.Paddle(mainSurface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
     paddle_1.rect.x = APPLICATION_WIDTH / 2
     paddle_1.rect.y = APPLICATION_HEIGHT - 30
     mainSurface.blit(paddle_1.image, paddle_1.rect)
