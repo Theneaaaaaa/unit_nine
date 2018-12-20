@@ -19,6 +19,12 @@ class Card:
             else:
                 return other_card
 
+    def get_rank(self):
+        if self.rank >= 9:
+            return 10
+        else:
+            return self.rank
+
     def __str__(self):
 
         new_card = self.ranks[self.rank] + " of " + self.suits[self.suit]
