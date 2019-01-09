@@ -1,3 +1,7 @@
+# Thenea Sun
+# Dec. 20th
+# A breakout game about letting ball hits the paddle and get points from it
+
 import pygame, sys
 from pygame.locals import *
 import brick
@@ -32,12 +36,14 @@ def main():
     mainSurface.fill(WHITE)
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
+    brick_group = pygame.sprite.Group()
     x = 0
     y = BRICK_Y_OFFSET
     for q in color:
         for z in range(2):
             for c in range(BRICKS_PER_ROW):
                 my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, q)
+                brick_group.add(my_brick)
                 my_brick.rect.x = x
                 my_brick.rect.y = y
                 mainSurface.blit(my_brick.image, my_brick.rect)
@@ -55,6 +61,11 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+        mainSurface.fill(WHITE)
+        for x in brick_group:
+            mainSurface.blit(x.image, x.rect)
+        paddle_1.move()
+        mainSurface.blit(paddle_1.image, paddle_1.rect)
         pygame.display.update()
 
 
