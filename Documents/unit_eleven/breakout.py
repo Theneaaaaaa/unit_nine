@@ -6,6 +6,7 @@ import pygame, sys
 from pygame.locals import *
 import brick
 import paddle
+import ball
 
 
 def main():
@@ -37,6 +38,7 @@ def main():
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
     brick_group = pygame.sprite.Group()
+    paddle_group = pygame.sprite.Group()
     x = 0
     y = BRICK_Y_OFFSET
     for q in color:
@@ -53,8 +55,14 @@ def main():
 
     paddle_1 = paddle.Paddle(mainSurface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
     paddle_1.rect.x = APPLICATION_WIDTH / 2
-    paddle_1.rect.y = APPLICATION_HEIGHT - 30
+    paddle_1.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     mainSurface.blit(paddle_1.image, paddle_1.rect)
+    paddle_group.add(paddle_1)
+
+    ball_1 = ball.Ball(BLACK, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    ball_1.rect.x = APPLICATION_HEIGHT / 2
+    ball_1.rect.y = APPLICATION_WIDTH / 2
+    mainSurface.blit(ball_1.image, ball_1.rect)
 
     while True:
         for event in pygame.event.get():
@@ -65,7 +73,15 @@ def main():
         for x in brick_group:
             mainSurface.blit(x.image, x.rect)
         paddle_1.move()
+        ball_1.move()
+        ball_1.collide(paddle_group)
+        ball_1.collideBrick(brick_group)
         mainSurface.blit(paddle_1.image, paddle_1.rect)
+        mainSurface.blit(ball_1.image, ball_1.rect)
+        for x in range(int(NUM_TURNS)):
+            if ball_1.rect.bottom >= APPLICATION_HEIGHT:
+                ball_1.rect.x = APPLICATION_HEIGHT / 2
+                ball_1.rect.y = APPLICATION_WIDTH / 2
         pygame.display.update()
 
 
