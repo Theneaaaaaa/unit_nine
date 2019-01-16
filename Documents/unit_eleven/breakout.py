@@ -78,7 +78,6 @@ def main():
         ball_1.collideBrick(brick_group)
         mainSurface.blit(paddle_1.image, paddle_1.rect)
         mainSurface.blit(ball_1.image, ball_1.rect)
-
         if ball_1.rect.bottom >= APPLICATION_HEIGHT:
             ball_1.rect.x = APPLICATION_HEIGHT / 2
             ball_1.rect.y = APPLICATION_WIDTH / 2
@@ -87,6 +86,8 @@ def main():
             print("Game Over")
             pygame.quit()
             sys.exit()
+        else:
+            print("You Won!")
         pygame.display.update()
 
 
