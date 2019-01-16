@@ -39,6 +39,8 @@ def main():
     # the screen (BRICK_Y_OFFSET)
     brick_group = pygame.sprite.Group()
     paddle_group = pygame.sprite.Group()
+    brick_sound = pygame.mixer.Sound("brick_beep.wav")
+    pygame.init()
     x = 0
     y = BRICK_Y_OFFSET
     for q in color:
@@ -78,6 +80,11 @@ def main():
         ball_1.collideBrick(brick_group)
         mainSurface.blit(paddle_1.image, paddle_1.rect)
         mainSurface.blit(ball_1.image, ball_1.rect)
+
+        if ball_1.collideBrick(brick_group):
+            brick_sound.play()
+            break
+
         if ball_1.rect.bottom >= APPLICATION_HEIGHT:
             ball_1.rect.x = APPLICATION_HEIGHT / 2
             ball_1.rect.y = APPLICATION_WIDTH / 2
