@@ -78,10 +78,15 @@ def main():
         ball_1.collideBrick(brick_group)
         mainSurface.blit(paddle_1.image, paddle_1.rect)
         mainSurface.blit(ball_1.image, ball_1.rect)
-        for x in range(int(NUM_TURNS)):
-            if ball_1.rect.bottom >= APPLICATION_HEIGHT:
-                ball_1.rect.x = APPLICATION_HEIGHT / 2
-                ball_1.rect.y = APPLICATION_WIDTH / 2
+
+        if ball_1.rect.bottom >= APPLICATION_HEIGHT:
+            ball_1.rect.x = APPLICATION_HEIGHT / 2
+            ball_1.rect.y = APPLICATION_WIDTH / 2
+            NUM_TURNS -= 1
+        if NUM_TURNS == 0:
+            print("Game Over")
+            pygame.quit()
+            sys.exit()
         pygame.display.update()
 
 
