@@ -39,7 +39,6 @@ def main():
     # the screen (BRICK_Y_OFFSET)
     brick_group = pygame.sprite.Group()
     paddle_group = pygame.sprite.Group()
-    brick_sound = pygame.mixer.Sound("brick_beep.wav")
     pygame.init()
     x = 0
     y = BRICK_Y_OFFSET
@@ -66,6 +65,10 @@ def main():
     ball_1.rect.y = APPLICATION_WIDTH / 2
     mainSurface.blit(ball_1.image, ball_1.rect)
 
+    win_sound = pygame.mixer.Sound("Yay.wav")
+    lose = pygame.mixer.Sound("lose.wav")
+    lost = pygame.mixer.Sound("no.wav")
+
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -81,20 +84,20 @@ def main():
         mainSurface.blit(paddle_1.image, paddle_1.rect)
         mainSurface.blit(ball_1.image, ball_1.rect)
 
-        if ball_1.collideBrick(brick_group):
-            brick_sound.play()
-            break
-
+        if len(brick_group) == 0:
+            print("You Won!")
+            win_sound.play()
         if ball_1.rect.bottom >= APPLICATION_HEIGHT:
             ball_1.rect.x = APPLICATION_HEIGHT / 2
             ball_1.rect.y = APPLICATION_WIDTH / 2
             NUM_TURNS -= 1
+            lose.play()
         if NUM_TURNS == 0:
             print("Game Over")
+            lose.play()
+            lost.play()
             pygame.quit()
             sys.exit()
-        else:
-            print("You Won!")
         pygame.display.update()
 
 
