@@ -18,6 +18,8 @@ class Ball(pygame.sprite.Sprite):
         # Add a circle to represent the ball to the surface just created.
         self.speed_x = 7
         self.speed_y = 6
+        self.brick_sound = pygame.mixer.Sound("beep.wav")
+        self.paddle_sound = pygame.mixer.Sound("paddle.wav")
 
     def move(self):
         self.rect.x = self.rect.x + self.speed_x
@@ -28,15 +30,14 @@ class Ball(pygame.sprite.Sprite):
             self.speed_x = -self.speed_x
         elif self.rect.top <= 0:
             self.speed_y = -self.speed_y
-            self.speed_x = -self.speed_x
+            self.speed_x = self.speed_x
 
     def collide(self, spriteGroup):
         if pygame.sprite.spritecollide(self, spriteGroup, False):
-            self.speed_x = -self.speed_x
             self.speed_y = -self.speed_y
+            self.paddle_sound.play()
 
     def collideBrick(self, spriteGroup):
         if pygame.sprite.spritecollide(self, spriteGroup, True):
-            self.speed_x = -self.speed_x
             self.speed_y = -self.speed_y
-
+            self.brick_sound.play()
