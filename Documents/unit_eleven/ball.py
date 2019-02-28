@@ -11,7 +11,7 @@ class Ball(pygame.sprite.Sprite):
         self.radius = radius
         # Create a surface, get the rect coordinates, fill the surface with a white color (or whatever color the
         # background of your breakout game will be.
-        self.image = pygame.Surface((self.radius, self.radius))
+        self.image = pygame.image.load("moon.png")
         self.rect = self.image.get_rect()
         self.windowWidth = windowWidth
         self.windowHeight = windowHeight
